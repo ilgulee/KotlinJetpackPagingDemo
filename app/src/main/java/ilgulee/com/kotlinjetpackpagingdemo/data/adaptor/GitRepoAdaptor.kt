@@ -1,4 +1,4 @@
-package ilgulee.com.kotlinjetpackpagingdemo.data
+package ilgulee.com.kotlinjetpackpagingdemo.data.adaptor
 
 import android.view.LayoutInflater
 import android.view.View

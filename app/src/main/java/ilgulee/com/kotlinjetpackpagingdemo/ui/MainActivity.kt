@@ -1,15 +1,14 @@
 package ilgulee.com.kotlinjetpackpagingdemo.ui
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import ilgulee.com.kotlinjetpackpagingdemo.R
-import ilgulee.com.kotlinjetpackpagingdemo.data.network.GitRepoService
-import ilgulee.com.kotlinjetpackpagingdemo.data.network.GitRepoServiceBuilder
-import ilgulee.com.kotlinjetpackpagingdemo.data.network.response.GitRepoResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import ilgulee.com.kotlinjetpackpagingdemo.data.adaptor.GitRepoAdaptor
+import ilgulee.com.kotlinjetpackpagingdemo.data.viewmodel.GitRepoViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,24 +16,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val service = GitRepoServiceBuilder.buildService(GitRepoService::class.java)
-        val call = service.getRepositories("android", 1, 10)
-        call.enqueue(object : Callback<GitRepoResponse> {
-            override fun onResponse(call: Call<GitRepoResponse>, response: Response<GitRepoResponse>) {
-                if (response.isSuccessful) {
-                    val apiResponse = response.body()!!
-                    val responseItems = apiResponse.items
+        val adapter = GitRepoAdaptor()
+        recycler_view.layoutManager = LinearLayoutManager(this)
 
-                    val size = responseItems?.let {
-                        responseItems.size.toString()
-                    }
-                    Toast.makeText(this@MainActivity, size, Toast.LENGTH_LONG).show()
-                }
-            }
-
-            override fun onFailure(call: Call<GitRepoResponse>, t: Throwable) {
-
-            }
+        val viewiModel = ViewModelProviders.of(this).get(GitRepoViewModel::class.java)
+        viewiModel.gitRepoPagedList.observe(this, Observer {
+            adapter.submitList(it)
         })
+        recycler_view.adapter = adapter
     }
 }

@@ -1,4 +1,4 @@
-package ilgulee.com.kotlinjetpackpagingdemo.data
+package ilgulee.com.kotlinjetpackpagingdemo.data.adaptor
 
 import androidx.paging.PageKeyedDataSource
 import ilgulee.com.kotlinjetpackpagingdemo.data.model.GitRepo
@@ -25,7 +25,11 @@ class GitRepoDataSource : PageKeyedDataSource<Int, GitRepo>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, GitRepo>) {
         val service = GitRepoServiceBuilder.buildService(GitRepoService::class.java)
-        val call = service.getRepositories(TOPIC, FIRST_PAGE, PAGE_SIZE)
+        val call = service.getRepositories(
+            TOPIC,
+            FIRST_PAGE,
+            PAGE_SIZE
+        )
         call.enqueue(object : Callback<GitRepoResponse> {
             override fun onResponse(call: Call<GitRepoResponse>, response: Response<GitRepoResponse>) {
                 if (response.isSuccessful) {
@@ -46,7 +50,11 @@ class GitRepoDataSource : PageKeyedDataSource<Int, GitRepo>() {
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, GitRepo>) {
         val service = GitRepoServiceBuilder.buildService(GitRepoService::class.java)
-        val call = service.getRepositories(TOPIC, FIRST_PAGE, PAGE_SIZE)
+        val call = service.getRepositories(
+            TOPIC,
+            FIRST_PAGE,
+            PAGE_SIZE
+        )
         call.enqueue(object : Callback<GitRepoResponse> {
             override fun onResponse(call: Call<GitRepoResponse>, response: Response<GitRepoResponse>) {
                 if (response.isSuccessful) {
@@ -67,7 +75,11 @@ class GitRepoDataSource : PageKeyedDataSource<Int, GitRepo>() {
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, GitRepo>) {
         val service = GitRepoServiceBuilder.buildService(GitRepoService::class.java)
-        val call = service.getRepositories(TOPIC, FIRST_PAGE, PAGE_SIZE)
+        val call = service.getRepositories(
+            TOPIC,
+            FIRST_PAGE,
+            PAGE_SIZE
+        )
         call.enqueue(object : Callback<GitRepoResponse> {
             override fun onResponse(call: Call<GitRepoResponse>, response: Response<GitRepoResponse>) {
                 if (response.isSuccessful) {
