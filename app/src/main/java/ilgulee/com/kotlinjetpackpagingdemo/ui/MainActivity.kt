@@ -1,8 +1,9 @@
-package ilgulee.com.kotlinjetpackpagingdemo
+package ilgulee.com.kotlinjetpackpagingdemo.ui
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import ilgulee.com.kotlinjetpackpagingdemo.R
 import ilgulee.com.kotlinjetpackpagingdemo.data.network.GitRepoService
 import ilgulee.com.kotlinjetpackpagingdemo.data.network.GitRepoServiceBuilder
 import ilgulee.com.kotlinjetpackpagingdemo.data.network.response.GitRepoResponse
